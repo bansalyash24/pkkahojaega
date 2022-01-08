@@ -178,13 +178,13 @@ int maxEnvelopes(vector<vector<int>>& nums) {
 }
 
 //count no of increasing subsequence with length k
-int noOfIncreasingSubsequenceWithk(vector<int>&nums,int k){
-    vector<vector<int>>dp(k,vector<int>(nums.size(),0));
+int noOfIncreasingSubsequenceWithk(vector<int>&nums,int a){
+    vector<vector<int>>dp(a,vector<int>(nums.size(),0));
     int ans=0;
     for(int j=0;j<nums.size();j++){
         dp[0][j]=1;
     }
-    for(int i=1;i<k;i++){
+    for(int i=1;i<a;i++){
         for (int j = i; j < nums.size(); j++){
             for(int k=0;k<j;k++){
                 if(nums[k]<nums[j]){
@@ -194,7 +194,7 @@ int noOfIncreasingSubsequenceWithk(vector<int>&nums,int k){
         }
     }
     for(int i=0;i<nums.size();i++){
-       ans+=dp[k-1][i];
+       ans+=dp[a-1][i];
     }
     return ans;
 }
