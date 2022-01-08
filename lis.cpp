@@ -186,7 +186,7 @@ int noOfIncreasingSubsequenceWithk(vector<int>&nums,int a){
     }
     for(int i=1;i<a;i++){
         for (int j = i; j < nums.size(); j++){
-            for(int k=0;k<j;k++){
+            for(int k=i-1;k<j;k++){
                 if(nums[k]<nums[j]){
                     dp[i][j]+=dp[i-1][k];
                 }
