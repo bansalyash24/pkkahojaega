@@ -110,18 +110,113 @@ int maxSumIncSubs(vector<int>&nums){
     return ans;
 }
 
+int buildingBridges(vector<pair<int,int>>&nums){
+    sort(nums.begin(),nums.end());
+    return 1;
+}
+
+vector<int> largestDivisibleSubset(vector<int>& nums) {
+    sort(nums.begin(),nums.end());
+    vector<int>dp(nums.size(),1);
+    int pre[nums.size()];
+    int omax=1,index=0;
+    pre[0]=-1;
+    vector<int>ans;
+    for(int i=1;i<nums.size();i++){
+        pre[i]=-1;
+        for(int j=0;j<i;j++){
+            if(nums[i]%nums[j]==0){
+                if(dp[j]+1>dp[i]){
+                    dp[i]=dp[j]+1;
+                    pre[i]=j;
+                }
+            }
+            if(omax<dp[i]){
+                omax=dp[i];
+                index=i;
+            }
+        }
+    }
+    
+    while(index!=-1){
+        ans.push_back(nums[index]);
+        index=pre[index];
+    }
+    return ans;
+}
+
+//Russian Doll Envelope O(nlogn)
+int binarySearchRussian(vector<vector<int>>&nums,int si,int ei,int val){
+    while(si<=ei){
+        int mid=(si+ei)/2;
+        if(nums[mid][1]==val){
+            return mid;
+        }else if(nums[mid][1]<val){
+            si=mid+1;
+        }else{
+            ei=mid-1;
+        }
+    }
+    return si;
+}
+
+int maxEnvelopes(vector<vector<int>>& nums) {
+    sort(nums.begin(),nums.end(),[](const vector<int>& v1,const vector<int>& v2){
+        if(v1[0]==v2[0]) return v2[1]<v1[1];
+        return v1[0] < v2[0];
+    });
+    int ans=1;
+    vector<int>dp(nums.size(),1);
+    for(int i=1;i<nums.size();i++){
+        int cidx=binarySearchRussian(nums,0,ans-1,nums[i][1]);
+        if(cidx==ans){
+            ans++;
+        }
+        nums[cidx]=nums[i];
+    }
+    return ans;
+}
+
+//count no of increasing subsequence with length k
+int noOfIncreasingSubsequenceWithk(vector<int>&nums,int k){
+    vector<vector<int>>dp(k,vector<int>(nums.size(),0));
+    int ans=0;
+    for(int j=0;j<nums.size();j++){
+        dp[0][j]=1;
+    }
+    for(int i=1;i<k;i++){
+        for (int j = i; j < nums.size(); j++){
+            for(int k=0;k<j;k++){
+                if(nums[k]<nums[j]){
+                    dp[i][j]+=dp[i-1][k];
+                }
+            }
+        }
+    }
+    for(int i=0;i<nums.size();i++){
+       ans+=dp[k-1][i];
+    }
+    return ans;
+}
 
 int main(){
     freopen("input.txt","r",stdin);
     freopen("output.txt","w",stdout);
     fans=0;
     memset(dp,-1,sizeof(dp));
-    vector<int>nums{1,7,8,3,2,5,9,6,4,2,7,3};
+    // vector<int>nums{1,7,8,3,2,5,9,6,4,2,7,3};
     // LIS(nums,nums.size()-1);
     // LIS_Memo(nums,nums.size()-1);
     // cout<<fans;
     // cout<<LIS_tab(nums);
     // cout<<LIS_tab_optimized(nums);
-    cout<<maxSumIncSubs(nums);
+    // cout<<maxSumIncSubs(nums);
+    // cout<<largestDivisibleSubset(nums);
+
+    // vector<vector<int>>nums {{4,5},{4,6},{6,7},{2,3},{1,1}};
+    // cout<<maxEnvelopes(nums);
+
+    vector<int>nums{12, 8, 11, 13, 10, 15, 14, 16, 20};
+    cout<<noOfIncreasingSubsequenceWithk(nums,4);
     return 0;
 }
