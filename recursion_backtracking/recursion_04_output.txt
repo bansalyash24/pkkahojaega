@@ -1,0 +1,25 @@
+    combinationInfiCoins
+
+    22222
+    2233
+    235
+    37
+    55
+    5
+
+    combinationSingleCoins
+
+    235
+    37
+    2
+
+
+    235
+    253
+    325
+    352
+    37
+    523
+    532
+    73
+    8
