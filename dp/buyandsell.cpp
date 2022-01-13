@@ -60,13 +60,13 @@ int maxProfit(vector<int>& prices){
 int maxProfit(vector<int>& prices){
     int buy=-prices[0];
     int sell=0;
-    queue<int>q;
+    // queue<int>q;
     for(int i=1;i<prices.size();i++){
         //sell variable will be changed so store it before
         int prevsell=sell;
         sell=max(sell,prices[i]+buy);
-        buy=max(buy,pot-prices[i]);
-        pot=prevsell;
+        // buy=max(buy,pot-prices[i]);
+        // pot=prevsell;
     }
     return sell;
 }
