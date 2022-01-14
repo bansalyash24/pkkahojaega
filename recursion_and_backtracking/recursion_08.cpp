@@ -190,19 +190,7 @@ int kSubsetSum(vi &arr,int idx,vi &setSum,vvi &sets){
     return count;
 }
 
-void find(int arr[],int n){
-    int first=INT_MIN;
-    int second=INT_MIN;
-    for(int i=0;i<n;i++){
-        if(arr[i]>first){
-            second=first;
-            first=arr[i];
-        }else if(arr[i]>second && arr[i]<first){
-            second=arr[i];
-        }
-    }
-    cout<<first<<" "<<second;
-}
+
 int main(){
     vvi dir{{-1,1},{0,1},{1,1}};
     vvi arr;

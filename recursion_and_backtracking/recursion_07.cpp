@@ -151,7 +151,7 @@ int friendsPairing(string str,string ans,vb &used){
 
     for(int i=1;i<str.size();i++){
         string friend=str[0] +""+str[i];
-        used[i]
+        used[i]=true;
     }
 }
 
