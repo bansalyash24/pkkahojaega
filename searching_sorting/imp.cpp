@@ -26,7 +26,24 @@ int firstMissingPositive(vector<int>& nums) {
     return len+1;
 }
 
-// kth Missing Positive
+// kth Missing Positive O(n)
+int findkthPositive(vector<int>&nums,int k){
+    int val=1;
+    int i=0;
+    while(i<nums.size()){
+        if(nums[i]==val){
+            val++;
+            i++;
+        }else{
+            val++;
+            k--;
+        }
+        if(k==0) return val-1;
+    }
+    return val+k-1;;
+}
+
+// kth Missing Positive O(log(n))
 
 int main(){
     
